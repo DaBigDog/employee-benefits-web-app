@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeBenefits.Database\EmployeeBenefits.Database.csproj" />
+    <ProjectReference Include="..\EmployeeBenefits.Repository\EmployeeBenefits.Repository.csproj" />
+  </ItemGroup>
+
+</Project>

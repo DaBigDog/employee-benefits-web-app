@@ -1,0 +1,15 @@
+
+tr.emp-row {
+  background-color: #dbdbdb;
+  border-top: 2px solid #1d1c1c;
+}
+
+td.msg-center {
+  text-align: center;
+  font-weight: bold;
+  font-style: italic;
+}
+
+div.pad-bottom {
+    margin-bottom: 3px;
+}
