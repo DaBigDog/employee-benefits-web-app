@@ -13,3 +13,11 @@ To run locally, follow these instructions:
 6. Update the "DefaultConnection" connection string with your local sql instance. The appsettings.json is located in the EmployeeBenefitsSolution/EmployeeBenefits.Web/ directory.
 
 Good luck!
+
+
+## To Do
+
+1. Error logging.
+2. Authentication and Authorization.
+3. Cors implementation.
+4. Security - Anti XSS
