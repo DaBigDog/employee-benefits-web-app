@@ -2,10 +2,10 @@
   <div class="row justify-content-between pad-bottom">
 
       <div class="col-2">
-        <button type="button" (click)="save()" class="btn btn-sm btn-primary">Save</button>
+        <button type="button" (click)="onSave()" class="btn btn-sm btn-primary">Save</button>
       </div>
       <div class="col-2 text-right">
-        <button type="button" (click)="addEmployee()" class="btn btn-sm btn-primary pull-right">Add Employee</button>
+        <button type="button" (click)="onAddEmployee()" class="btn btn-sm btn-primary pull-right">Add Employee</button>
       </div>
 
   </div>
@@ -34,10 +34,10 @@
                 <td class="text-right">{{ getEmployeeYearlyCost(emp) | currency }}</td>
                 <td class="text-right">{{ getEmployeeBiweeklyCost(emp) | currency }}</td>
                 <td>
-                  <button class="btn btn-sm btn-danger" (click)="deleteEmployee(emp)">Delete</button>
+                  <button class="btn btn-sm btn-danger" (click)="onDeleteEmployee(emp)">Delete</button>
                 </td>
                 <td>
-                  <button class="btn btn-sm btn-primary" (click)="addDependent(emp)">Add Dep.</button>
+                  <button class="btn btn-sm btn-primary" (click)="onAddDependent(emp)">Add Dep.</button>
                 </td>
               </tr>
 
@@ -50,7 +50,7 @@
                   <td class="text-right">{{ getDependentYearlyCost(dep) | currency }}</td>
                   <td class="text-right">{{ getDependentBiweeklyCost(dep) | currency }}</td>
                   <td>
-                    <button class="btn btn-sm btn-danger" (click)="deleteDependent(emp, dep)">Delete</button>
+                    <button class="btn btn-sm btn-danger" (click)="onDeleteDependent(emp, dep)">Delete</button>
                   </td>
                   <td></td>
                 </tr>

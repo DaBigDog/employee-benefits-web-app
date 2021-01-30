@@ -14,7 +14,7 @@ export class EmployeeListComponent implements OnInit {
   public isLoading: boolean = true;
   public employeeList: any[];
   public deductionCosts: DeductionCosts;
-
+  private addToEmpDependents: Employee;
 
   
   private readonly empText: string = 'Employee';
@@ -32,12 +32,15 @@ export class EmployeeListComponent implements OnInit {
   }
 
 
+// Gets Employee data
   private loadEmployeeListData() {
 
+// show is loading message
     this.isLoading = true;
 
     this.service.getEmployeeAndDependentList()
       .pipe(finalize(() => {
+        // hide is loading message
         this.isLoading = false;
       }))
       .subscribe((data: any) => {
@@ -50,6 +53,7 @@ export class EmployeeListComponent implements OnInit {
 
   }
 
+  // Gets deduction cost data
   private loadDeductionCostData() :void {
 
     this.service.getBenefitDeductionCost().subscribe((data: any) => {
@@ -62,9 +66,10 @@ export class EmployeeListComponent implements OnInit {
 
   }
 
-  save(): void {
+  // saves changes made to the Employee list
+  onSave(): void {
     this.service.saveData(this.employeeList).subscribe((data: any) => {
-
+      // notify the user...
       alert('Employee list successfully saved.');
       console.log(data);
     }, (error: any) => {
@@ -74,20 +79,22 @@ export class EmployeeListComponent implements OnInit {
 
   }
 
-  addEmployee(e: any): void {
+  // add employee event
+  onAddEmployee(e: any): void {
     this.modalTitle = this.empText;
     this.sendOpenModal.next(1);
   }
 
-  private addToEmpDependents: Employee;
-
-  addDependent(e: any): void {
+  
+  // add dependent event
+  onAddDependent(e: any): void {
     this.modalTitle = this.depText;
     this.sendOpenModal.next(2);
     this.addToEmpDependents = e;
     console.log(e);
   }
 
+  // employee or dependent added
   onAddEvent(e: any): void {
     if (e.type === 1) {
       this.employeeList.push(e.person)
@@ -100,7 +107,8 @@ export class EmployeeListComponent implements OnInit {
     console.log(e);
   }
 
-  deleteEmployee(e: any): void {
+  // delete employee
+  onDeleteEmployee(e: any): void {
     console.log(e);
     if (this.confirmDelete(this.empText)) {
       if (e.id === 0) {
@@ -116,7 +124,8 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-  deleteDependent(e: any, d: any): void {
+  // delete dependent event
+  onDeleteDependent(e: any, d: any): void {
     console.log(e, d);
     if (this.confirmDelete(this.depText)) {
       if (d.id === 0) {
@@ -132,6 +141,8 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
+
+  // confirm user wants to delete
   private confirmDelete(msg: string): boolean {
     return confirm(`Are you sure to delete this ${msg}?`);
   }
@@ -140,6 +151,7 @@ export class EmployeeListComponent implements OnInit {
 
 /********  grid functions  *************/
 
+  // string start with letter from deduction cost model
   private beginsWithLetter(str: string): boolean {
     if (str && this.deductionCosts.deductionMatch) {
       return (str[0].toUpperCase() === this.deductionCosts.deductionMatch.toUpperCase())
@@ -147,13 +159,15 @@ export class EmployeeListComponent implements OnInit {
     return false;
   }
 
+  // first or last name is a match
   private nameIsMatch(p: Person) {
     return (this.beginsWithLetter(p.firstName) || this.beginsWithLetter(p.middleName) ||
       this.beginsWithLetter(p.lastName))
   }
 
-  // Total yearly cost
+/** Total yearly cost **/
 
+  // gets employee yearly cost
   getEmployeeYearlyCost(emp: Employee): number {
     if (this.nameIsMatch(emp)) {
       return this.deductionCosts.employeeYearlyCostWithDiscount;
@@ -162,6 +176,7 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
+  // gets dependent yearly cost
   getDependentYearlyCost(dep: Dependent): number {
     if (this.nameIsMatch(dep)) {
       return this.deductionCosts.dependentYearlyCostWithDiscount;
@@ -170,9 +185,9 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
-  // Biweekly deduction
+/*** Biweekly deduction  ***/
 
-
+  // gets Employee bi-weekly deduction
   getEmployeeBiweeklyCost(emp: Employee): number {
     if (this.nameIsMatch(emp)) {
       return this.deductionCosts.employeeBiweeklyCostWithDiscount;
@@ -181,6 +196,7 @@ export class EmployeeListComponent implements OnInit {
     }
   }
 
+  // gets dependent bi-weekly deduction
   getDependentBiweeklyCost(dep: Dependent): number {
     if (this.nameIsMatch(dep)) {
       return this.deductionCosts.dependentBiweeklyCostWithDiscount;

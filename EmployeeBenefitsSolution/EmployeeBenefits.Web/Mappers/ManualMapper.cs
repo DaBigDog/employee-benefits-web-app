@@ -1,16 +1,25 @@
-﻿using EmployeeBenefits.Database.Models;
-using EmployeeBenefits.Web.ViewModels;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
+
+using EmployeeBenefits.Database.Models;
+using EmployeeBenefits.Web.ViewModels;
 
 namespace EmployeeBenefits.Web.Mappers
 {
+
+    /// <summary>
+    /// Converts classes
+    /// </summary>
     public static class ManualMapper
     {
 
+        /// <summary>
+        /// Convert Employee View Models to Employee class
+        /// </summary>
+        /// <param name="employeeViewModels">array of Employee View Models</param>
+        /// <param name="companyId">int - Company Id</param>
+        /// <returns>List<Employee> - list of Employee entities</returns>
         public static List<Employee> ConvertToModel(this IEnumerable<EmployeeViewModel> employeeViewModels, int companyId)
         {
             List<Employee> list = new List<Employee>();

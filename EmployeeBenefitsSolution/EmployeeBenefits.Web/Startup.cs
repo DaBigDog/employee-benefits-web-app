@@ -1,23 +1,16 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
-using EmployeeBenefits.Repository;
-using EmployeeBenefits.Web.Data;
-using EmployeeBenefits.Web.Models;
-using EmployeeBenefits.Service;
-using System;
 using EmployeeBenefits.Database.Models;
+using EmployeeBenefits.Repository;
+using EmployeeBenefits.Service;
+using EmployeeBenefits.Web.Models;
 
 namespace EmployeeBenefits.Web
 {

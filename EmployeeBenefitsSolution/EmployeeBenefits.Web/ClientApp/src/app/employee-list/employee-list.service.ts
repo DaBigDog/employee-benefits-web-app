@@ -16,16 +16,18 @@ export class EmployeeListService {
 
   }
 
-
+  // Gets employee list with dependents
   public getEmployeeAndDependentList(): Observable<any> {
     return this.http.sendGetRequest(this.baseUrl);
   }
 
+  // Gets benefit deduction costs
   public getBenefitDeductionCost(): Observable<any> {
     return this.http.sendGetRequest(`${this.benefitsUrl}/DeductionCost`);
   }
 
 
+  // Posts employee data list
   public saveData(data: any[]): Observable<any> {
 
     console.log(JSON.stringify(data));

@@ -1,12 +1,16 @@
-﻿using EmployeeBenefits.Database.Models;
-using EmployeeBenefits.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
+using EmployeeBenefits.Database.Models;
+using EmployeeBenefits.Repository;
 
 namespace EmployeeBenefits.Service
 {
+
+    /// <summary>
+    /// Employe service interface.
+    /// </summary>
     public interface IEmployeeService
     {
         IEnumerable<Employee> GetAll();
@@ -17,6 +21,10 @@ namespace EmployeeBenefits.Service
         void SaveEmployeeList(IEnumerable<Employee> employees);
     }
 
+
+    /// <summary>
+    /// Employee service.
+    /// </summary>
     public class EmployeeService : IEmployeeService
     {
         private IEmployeeRepository repository;
@@ -28,23 +36,42 @@ namespace EmployeeBenefits.Service
             dependentRepository = dependentRepo;
         }
 
-
+        /// <summary>
+        /// Get all Employee entities
+        /// </summary>
+        /// <returns>IEnumerable<Employee></returns>
         public IEnumerable<Employee> GetAll()
         {
             return repository.GetAll();
         }
 
+
+        /// <summary>
+        /// Get all Employees for a Company
+        /// </summary>
+        /// <param name="companyId">int - comapny id</param>
+        /// <returns>IQueryable<Employee></returns>
         public IQueryable<Employee> GetAllForCompany(int companyId)
         {
             return repository.Where(e => e.CompanyId == companyId);
         }
 
+
+        /// <summary>
+        /// Get all Employees and their Dependents for a Company.
+        /// </summary>
+        /// <param name="companyId">int - comapny id</param>
+        /// <returns>IQueryable<Employee></returns>
         public IQueryable<Employee> GetEmployeesAndDependentsForCompany(int companyId)
         {
             return repository.GetRelatedTablesExpression(e => e.CompanyId == companyId, "Dependents");
         }
 
 
+        /// <summary>
+        /// Saves new and deleted Employees and Dependents
+        /// </summary>
+        /// <param name="employees">IEnumerable<Employee> employees</param>
         public void SaveEmployeeList(IEnumerable<Employee> employees)
         {
             /************************************************************************************* 
@@ -63,14 +90,10 @@ namespace EmployeeBenefits.Service
 
             dependentRepository.RemoveRange(dep => !existingDepIds.Contains(dep.Id));
 
-            dependentRepository.Save();
-
             // next, we delete employees deleted by user
             List<int> existingEmployeeIds = employees.Where(emp => emp.Id != 0).Select(e => e.Id).ToList();
 
             repository.RemoveRange(emp => !existingEmployeeIds.Contains(emp.Id));
-
-            repository.Save();
 
 
             /********** Add new Employees and Dependents *************/
@@ -80,8 +103,7 @@ namespace EmployeeBenefits.Service
             {
                 repository.Add(emp);
             });
-            // now commit the new employees and their dependents
-            repository.Save();
+
 
             // find all new dependents added to existing employees and insert
             List<Employee> existingEmployeesWithNewDeps = employees.Where(e => e.Id != 0 && e.Dependents.Any(d => d.Id == 0)).ToList();
@@ -94,8 +116,19 @@ namespace EmployeeBenefits.Service
                     dependentRepository.Add(d);
                 });
             });
-            // commit new dependents added to existing employees
-            dependentRepository.Save();
+
+
+            try
+            {
+                // commit all data changes...
+                repository.Save();
+            } catch(Exception ex)
+            {
+                // we need to add error logging so errors can be reviewed and diagnosed.
+
+                // preserve the stack details or we can throw a custom exception
+                throw;
+            }
         }
 
 

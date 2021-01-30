@@ -1,11 +1,13 @@
-﻿using EmployeeBenefits.Database.Models;
+﻿using System.Collections.Generic;
+
+using EmployeeBenefits.Database.Models;
 using EmployeeBenefits.Repository;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EmployeeBenefits.Service
 {
+    /// <summary>
+    /// Comapny service interfacec
+    /// </summary>
     public interface ICompanyService
     {
         IEnumerable<Company> GetAll();
@@ -14,7 +16,9 @@ namespace EmployeeBenefits.Service
 
 
 
-
+    /// <summary>
+    /// Company service.
+    /// </summary>
     public class CompanyService : ICompanyService
     {
         private ICompanyRepository repo;
@@ -24,7 +28,10 @@ namespace EmployeeBenefits.Service
             repo = companyRepository;
         }
 
-
+        /// <summary>
+        /// Get all company entities
+        /// </summary>
+        /// <returns>IEnumerable<Company></returns>
         public IEnumerable<Company> GetAll()
         {
             return repo.GetAll();

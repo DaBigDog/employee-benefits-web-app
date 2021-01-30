@@ -24,6 +24,8 @@ export class BenefitFormComponent implements OnInit {
   private person: Person = new Person();
   private addType: number;
 
+  private modalId: string = 'benefit-form';
+
   constructor() { }
 
   ngOnInit() {
@@ -38,17 +40,18 @@ export class BenefitFormComponent implements OnInit {
 
 
 
-
+  // opens modal dialog
   private openModalDialog() {
-    $('#benefit-form').modal("show");
+    $(`#${this.modalId}`).modal("show");
   }
 
+  // hides modal dialog
   private closeModalDialog() {
-    $('#benefit-form').modal("hide");
+    $(`#${ this.modalId }`).modal("hide");
   }
 
-
-  submit(): void {
+  // form submit event
+  onSubmit(): void {
     if (this.benefitForm.valid) {
       this.onAddResponse.next({ type: this.addType, person: Object.assign({}, this.person) });
       this.closeModalDialog();
@@ -56,11 +59,13 @@ export class BenefitFormComponent implements OnInit {
     }
   }
 
-  close(): void {
+  // response to close event
+  onClose(): void {
     this.resetForm();
 
   }
 
+  // reset form to original state.
   private resetForm(): void {
     this.benefitForm.resetForm();
 

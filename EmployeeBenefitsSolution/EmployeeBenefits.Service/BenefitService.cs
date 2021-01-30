@@ -1,9 +1,9 @@
-﻿using EmployeeBenefits.Database.Models;
-using EmployeeBenefits.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
+using EmployeeBenefits.Database.Models;
+using EmployeeBenefits.Repository;
 
 namespace EmployeeBenefits.Service
 {
@@ -20,7 +20,9 @@ namespace EmployeeBenefits.Service
 
 
 
-
+    /// <summary>
+    /// Service for the Benefit class.
+    /// </summary>
     public class BenefitService : IBenefitService
     {
         private IBenefitRepository repo;
@@ -30,23 +32,41 @@ namespace EmployeeBenefits.Service
             repo = BenefitRepository;
         }
 
-
+        /// <summary>
+        /// Gets all Benefit entities.
+        /// </summary>
+        /// <returns>IEnumerable<Benefit></returns>
         public IEnumerable<Benefit> GetAll()
         {
             return repo.GetAll();
         }
 
+        /// <summary>
+        /// Get all Benefit entities with matching Company Id
+        /// </summary>
+        /// <param name="companyId">int - company id</param>
+        /// <returns>IQueryable<Benefit></returns>
         public IQueryable<Benefit> GetAllByCompanyId(int companyId)
         {
             return repo.Where(b => b.CompanyId == companyId);
         }
 
+        /// <summary>
+        /// Gets latest Benefit entity for a Company.
+        /// </summary>
+        /// <param name="companyId">int company id</param>
+        /// <returns>Benefit</returns>
         public Benefit GetLatestByCompanyId(int companyId)
         {
             return repo.Where(b => b.CompanyId == companyId).OrderByDescending(r => r.Id).FirstOrDefault();
         }
 
 
+        /// <summary>
+        /// Returns yearly and bi-weekly benefit costs for a Company
+        /// </summary>
+        /// <param name="companyId">int - company id</param>
+        /// <returns>DeductionCost</returns>
         public DeductionCost GetBenefitDeductionCosts(int companyId)
         {
             return GetBenefitsDeductionCost(companyId);
@@ -74,7 +94,7 @@ namespace EmployeeBenefits.Service
          * ******************************************/
 
         /// <summary>
-        /// Returns the avarage pay period deductions for each cost type
+        /// Returns the yearlt cost and avarage pay period deductions for each cost type
         /// </summary>
         /// <param name="companyId">int - company id</param>
         /// <returns>DeductionCost - avg. pay period deduction for each type</returns>
@@ -122,6 +142,13 @@ namespace EmployeeBenefits.Service
             return averageDeduction;
         }
 
+
+        /// <summary>
+        /// Calculates the Yearly benefit cost with deduction (if there is one)
+        /// </summary>
+        /// <param name="yearlyCost">yearly Company cost - decimal</param>
+        /// <param name="discount">Company percent discount - int</param>
+        /// <returns>decimal</returns>
         private decimal TotalBenefitCost(decimal yearlyCost, int? discount)
         {
             if (discount.HasValue)

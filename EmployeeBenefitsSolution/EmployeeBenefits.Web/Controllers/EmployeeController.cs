@@ -1,15 +1,13 @@
-﻿using EmployeeBenefits.Database.Models;
+﻿using System.Collections.Generic;
+using System.Linq;
+
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+
+using EmployeeBenefits.Database.Models;
 using EmployeeBenefits.Service;
 using EmployeeBenefits.Web.Mappers;
 using EmployeeBenefits.Web.ViewModels;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-
 
 namespace EmployeeBenefits.Web.Controllers
 {

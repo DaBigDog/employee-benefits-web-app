@@ -1,11 +1,14 @@
-﻿using EmployeeBenefits.Database.Models;
+﻿using System.Collections.Generic;
+
+using EmployeeBenefits.Database.Models;
 using EmployeeBenefits.Repository;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EmployeeBenefits.Service
 {
+
+    /// <summary>
+    /// Dependent service interface.
+    /// </summary>
     public interface IDependentService
     {
         IEnumerable<Dependent> GetAll();
@@ -14,7 +17,9 @@ namespace EmployeeBenefits.Service
 
 
 
-
+    /// <summary>
+    /// Dependent service.
+    /// </summary>
     public class DependentService : IDependentService
     {
         private IDependentRepository repo;
@@ -24,7 +29,10 @@ namespace EmployeeBenefits.Service
             repo = DependentRepository;
         }
 
-
+        /// <summary>
+        /// Get all Dependent entities
+        /// </summary>
+        /// <returns>IEnumerable<Dependent></returns>
         public IEnumerable<Dependent> GetAll()
         {
             return repo.GetAll();

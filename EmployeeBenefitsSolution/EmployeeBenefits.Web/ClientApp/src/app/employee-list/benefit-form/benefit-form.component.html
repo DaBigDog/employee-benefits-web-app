@@ -8,7 +8,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #benefitForm="ngForm" (ngSubmit)="submit()" novalidate>
+        <form #benefitForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
           <div class="form-group">
             <label for="firstName">First Name</label>
             <input type="text" class="form-control" id="firstName" name="firstName" #firstName="ngModel"
@@ -37,7 +37,7 @@
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
         <button type="button" class="btn btn-primary" (click)="benefitForm.ngSubmit.emit()"
                 [disabled]="!benefitForm.form.valid">
           Add

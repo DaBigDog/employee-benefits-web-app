@@ -1,7 +1,4 @@
 ﻿using EmployeeBenefits.Database.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EmployeeBenefits.Repository
 {
@@ -10,7 +7,9 @@ namespace EmployeeBenefits.Repository
 
     }
 
-
+    /// <summary>
+    /// Allows access and changes to Employee table rows.
+    /// </summary>
     public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
 
