@@ -105,6 +105,18 @@ namespace EmployeeBenefits.Service
 
             Benefit benefit = repo.Where(c => c.CompanyId == companyId).OrderByDescending(o => o.Id).FirstOrDefault();
 
+            if (benefit == null)
+            {
+                // The Company must have a it's benefit(s) first set up.
+                // We must first notify the user
+                // and redirect the user to the Benefits entry page... which we need to complete.
+
+                throw new Exception("Benefit for the Company does not yet exist.");
+
+                // Please execute the EmployeeBenefits.Database -> Scripts -> InitializeDB.sql script
+                // to create the dabase and populate the Company and Beneit tables
+            }
+
             model.DeductionMatch = benefit.DiscountMatch;
 
             // calculate the yearly costs

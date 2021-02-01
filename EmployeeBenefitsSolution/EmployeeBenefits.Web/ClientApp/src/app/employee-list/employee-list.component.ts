@@ -48,7 +48,8 @@ export class EmployeeListComponent implements OnInit {
 
       console.log(data);
     }, (error: any) => {
-        console.log(error);
+          console.log(error);
+          alert(error);
     });
 
   }
@@ -61,7 +62,8 @@ export class EmployeeListComponent implements OnInit {
 
       console.log(data);
     }, (error: any) => {
-      console.log(error);
+        console.log(error);
+        alert(error);
     });
 
   }
